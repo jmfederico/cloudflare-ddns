@@ -272,19 +272,17 @@ docker run --rm \
 
 - Keep your API token secure and never commit it to version control
 - Never commit your `.env` file with real credentials to version control
-- Use Docker secrets or environment variable injection in production
 - The API token should have minimal required permissions
 - Consider rotating API tokens regularly
 - The container runs as a non-root user for security
-- Consider using read-only filesystem mounts in production
 
 ## Docker Image Details
 
 The Dockerfile uses a multi-stage build to keep the final image small:
 
-- Build stage: Uses full Rust toolchain (~1.5GB)
-- Runtime stage: Uses minimal Debian slim (~80MB final image)
+- Build stage: Uses full Rust toolchain
+- Runtime stage: Uses minimal Debian slim
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is released into the public domain under the Unlicense - see the [LICENSE](LICENSE) file for details.
