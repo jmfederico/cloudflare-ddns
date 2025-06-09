@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Signal handler function
+cleanup() {
+    echo "Received signal, shutting down gracefully..."
+    if [ ! -z "$SLEEP_PID" ]; then
+        kill $SLEEP_PID 2>/dev/null
+    fi
+    exit 0
+}
+
+# Set up signal traps
+trap cleanup SIGTERM SIGINT
+
+# Configure sleep interval (default: 10 minutes = 600 seconds)
+SLEEP_INTERVAL=${SLEEP_INTERVAL:-600}
+
+echo "Starting Cloudflare DDNS updater..."
+echo "Sleep interval set to ${SLEEP_INTERVAL} seconds"
+
+while true; do
+    echo "Running Cloudflare DDNS update..."
+    /app/cloudflare-ddns
+
+    echo "Sleeping for ${SLEEP_INTERVAL} seconds..."
+    sleep $SLEEP_INTERVAL &
+    SLEEP_PID=$!
+
+    # Wait for sleep to complete or be interrupted
+    wait $SLEEP_PID
+    SLEEP_PID=""
+done

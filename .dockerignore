@@ -1,0 +1,22 @@
+# Rust build artifacts
+target/
+
+# Environment files (should be provided at runtime)
+.env
+.env.local
+
+# Git files
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE files
+.vscode/
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml

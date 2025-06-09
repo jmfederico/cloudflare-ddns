@@ -1,0 +1,11 @@
+services:
+  cloudflare-ddns:
+    build: .
+    environment:
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - CLOUDFLARE_ZONE_ID=${CLOUDFLARE_ZONE_ID}
+      - DNS_RECORD_NAME=${DNS_RECORD_NAME}
+      - DNS_RECORD_TYPE=${DNS_RECORD_TYPE:-A}
+      - DNS_RECORD_TTL=${DNS_RECORD_TTL:-1}
+      - SLEEP_INTERVAL=${SLEEP_INTERVAL:-600}
+    restart: unless-stopped
