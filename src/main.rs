@@ -202,7 +202,7 @@ async fn get_public_ip() -> Result<String> {
 }
 
 fn load_cache() -> Option<DnsCache> {
-    let cache_path = "./cache.json";
+    let cache_path = "./cache/cache.json";
 
     if !Path::new(cache_path).exists() {
         println!("📄 No cache file found, will create one after first run");
@@ -228,8 +228,13 @@ fn load_cache() -> Option<DnsCache> {
 }
 
 fn save_cache(cache: &DnsCache) -> Result<()> {
-    let cache_path = "./cache.json";
+    let cache_path = "./cache/cache.json";
     let content = serde_json::to_string_pretty(cache)?;
+
+    // Create the cache directory if it doesn't exist
+    if let Some(parent) = Path::new(cache_path).parent() {
+        fs::create_dir_all(parent)?;
+    }
 
     fs::write(cache_path, content)?;
     println!("💾 Cache saved to {}", cache_path);

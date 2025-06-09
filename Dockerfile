@@ -44,6 +44,10 @@ COPY repeat-cloudflare-ddns /app/repeat-cloudflare-ddns
 RUN chmod +x /app/repeat-cloudflare-ddns && \
     chown cloudflare-ddns:cloudflare-ddns /app/cloudflare-ddns /app/repeat-cloudflare-ddns
 
+# Create cache directory and set ownership so the user can write to it
+RUN mkdir -p /app/cache && \
+    chown cloudflare-ddns:cloudflare-ddns /app/cache
+
 # Switch to the non-root user
 USER cloudflare-ddns
 

@@ -8,4 +8,9 @@ services:
       - DNS_RECORD_TYPE=${DNS_RECORD_TYPE:-A}
       - DNS_RECORD_TTL=${DNS_RECORD_TTL:-1}
       - SLEEP_INTERVAL=${SLEEP_INTERVAL:-600}
+    volumes:
+      - cloudflare_ddns_cache:/app/cache
     restart: unless-stopped
+
+volumes:
+  cloudflare_ddns_cache:
